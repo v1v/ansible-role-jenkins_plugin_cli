@@ -1,0 +1,60 @@
+---
+# tasks file for ansible-role-jenkins-plugin-cli
+
+- name: Get the jenkins_plugin_cli jarfile.
+  get_url:
+    url: "{{ jenkins_plugin_cli_url }}"
+    dest: "{{ jenkins_plugin_cli_location }}"
+    owner: "{{ jenkins_user }}"
+    group: "{{ jenkins_group }}"
+    mode: '0755'
+  register: jarfile_get
+  until: "'OK' in jarfile_get.msg or '304' in jarfile_get.msg or 'file already exists' in jarfile_get.msg"
+  retries: 5
+  delay: 10
+  check_mode: false
+
+- name: Create Jenkins updates directory.
+  file:
+    path: "{{ jenkins_home }}/updates"
+    state: directory
+    owner: "{{ jenkins_user }}"
+    group: "{{ jenkins_group }}"
+    mode: 0755
+
+- name: Download current plugin updates center from Jenkins update site.
+  get_url:
+    url: "{{ jenkins_updates_center_url }}"
+    dest: "{{ jenkins_home }}/updates/default.json"
+    owner: "{{ jenkins_user }}"
+    group: "{{ jenkins_group }}"
+    mode: 0440
+  changed_when: false
+  register: get_result
+  until: get_result is success
+  retries: 3
+  delay: 2
+
+- name: Download current plugin versions from Jenkins update site.
+  get_url:
+    url: "{{ jenkins_plugin_info_url }}"
+    dest: "{{ jenkins_home }}/updates/plugin-versions.json"
+    owner: "{{ jenkins_user }}"
+    group: "{{ jenkins_group }}"
+    mode: 0440
+  changed_when: false
+  register: get_result
+  until: get_result is success
+  retries: 3
+  delay: 2
+
+- name: Run the jenkins plugins CLI.
+  shell: >
+    java "{{ jenkins_plugin_cli_java_opts }}" -jar "{{ jenkins_plugin_cli_location }}" \
+      --plugin-file {{ jenkins_home }}/plugins.txt \
+      --verbose \
+      --war {{ jenkins_war_location }} \
+      --jenkins-update-center "{{ jenkins_home }}/updates/default.json"
+      --jenkins-plugin-info "{{ jenkins_home }}/updates/plugin-versions.json" 
+  owner: "{{ jenkins_user }}"
+  group: "{{ jenkins_group }}"

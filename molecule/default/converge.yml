@@ -1,0 +1,20 @@
+---
+- name: Converge
+  hosts: all
+  become: true
+
+  vars:
+    plugins: "job-dsl"
+
+  pre_tasks:
+    - include_tasks: java-8.yml
+
+  roles:
+    - role: geerlingguy.java
+    - role: geerlingguy.jenkins
+    - role: v1v.jenkins-plugin-cli
+
+  post_tasks:
+    - name: Check if Jenkins is running.
+      uri:
+        url: "http://127.0.0.1:8080/"

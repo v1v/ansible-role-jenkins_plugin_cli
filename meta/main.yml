@@ -1,0 +1,29 @@
+---
+dependencies: []
+
+galaxy_info:
+  author: v1v
+  role_name: jenkins-plugin-cli
+  description: Plugin Installation Manager Tool for Jenkins
+  license: "license MIT"
+  min_ansible_version: 2.4
+  platforms:
+    - name: EL
+      versions:
+        - 6
+        - 7
+        - 8
+    - name: Fedora
+      versions:
+        - all
+    - name: Debian
+      versions:
+        - all
+    - name: Ubuntu
+      versions:
+        - all
+  galaxy_tags:
+    - development
+    - packaging
+    - jenkins
+    - ci
