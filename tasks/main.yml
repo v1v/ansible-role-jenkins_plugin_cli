@@ -1,5 +1,4 @@
 ---
-# tasks file for ansible-role-jenkins-plugin-cli
 
 - name: Get the jenkins_plugin_cli jarfile.
   get_url:
@@ -56,5 +55,4 @@
       --war {{ jenkins_war_location }} \
       --jenkins-update-center "{{ jenkins_home }}/updates/default.json"
       --jenkins-plugin-info "{{ jenkins_home }}/updates/plugin-versions.json"
-  owner: "{{ jenkins_user }}"
-  group: "{{ jenkins_group }}"
+  changed_when: true

@@ -12,7 +12,7 @@
   roles:
     - role: geerlingguy.java
     - role: geerlingguy.jenkins
-    - role: v1v.jenkins-plugin-cli
+    - role: v1v.jenkins_plugin_cli
 
   post_tasks:
     - name: Check if Jenkins is running.

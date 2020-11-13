@@ -1,8 +1,8 @@
 # Ansible Role: Jenkins Plugin CLI
 
-[![CI](https://github.com/v1v/ansible-role-jenkins-plugin-cli/workflows/CI/badge.svg?event=push)](https://github.com/v1v/ansible-role-jenkins-plugin-cli/actions?query=workflow%3ACI)
+[![CI](https://github.com/v1v/ansible-role-jenkins_plugin_cli/workflows/CI/badge.svg?event=push)](https://github.com/v1v/ansible-role-jenkins_plugin_cli/actions?query=workflow%3ACI)
 
-Installs Jenkins plugins using the jenkins-plugin-cli CI on RHEL/CentOS and Debian/Ubuntu servers.
+Installs Jenkins plugins using the [plugin-installation-manager-tool](https://github.com/jenkinsci/plugin-installation-manager-tool) on RHEL/CentOS and Debian/Ubuntu servers.
 
 ## Requirements
 
@@ -30,7 +30,7 @@ None.
   roles:
     - role: geerlingguy.java
     - role: geerlingguy.jenkins
-    - role: v1v.jenkins-plugin-cli
+    - role: v1v.jenkins_plugin_cli
 ```
 
 ## License
