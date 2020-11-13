@@ -17,8 +17,4 @@
 
   roles:
     - role: geerlingguy.java
-
-  tasks:
-    - name: "Include jenkins_plugin_cli"
-      include_role:
-        name: "jenkins_plugin_cli"
+    - role: v1v.jenkins_plugin_cli
