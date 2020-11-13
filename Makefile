@@ -13,3 +13,8 @@ setup-molecule:
 lint:
 	yamllint . ; \
     ansible-lint
+
+molecule:
+	echo 'prepare symlink to molecule/default/roles/v1v.jenkins_plugin_cli'
+	@ln -fs $(pwd) molecule/default/roles/v1v.jenkins_plugin_cli
+	molecule test
