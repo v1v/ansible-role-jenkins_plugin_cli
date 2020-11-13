@@ -55,6 +55,6 @@
       --verbose \
       --war {{ jenkins_war_location }} \
       --jenkins-update-center "{{ jenkins_home }}/updates/default.json"
-      --jenkins-plugin-info "{{ jenkins_home }}/updates/plugin-versions.json" 
+      --jenkins-plugin-info "{{ jenkins_home }}/updates/plugin-versions.json"
   owner: "{{ jenkins_user }}"
   group: "{{ jenkins_group }}"

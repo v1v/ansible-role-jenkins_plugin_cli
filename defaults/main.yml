@@ -9,7 +9,7 @@ jenkins_plugin_cli_url: "https://github.com/jenkinsci/plugin-installation-manage
 jenkins_plugin_installation_war: "/usr/share/jenkins/jenkins.war"
 install_jenkins_plugin_with_installation_manager: true
 
-## Options for the jenkins-plugin-manager cli 
+## Options for the jenkins-plugin-manager cli
 plugin_file:
 plugin_download_directory:
 plugins:
