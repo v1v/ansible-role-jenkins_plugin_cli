@@ -14,16 +14,16 @@ fi
 if [ -n "{{ output }}" ] ; then
     output_flag="--output {{ output }}"
 fi
-if [ "{{ verbose }}" = "true" ] ; then
+if [ "{{ verbose }}" = "True" ] ; then
     verbose_flag="--verbose"
 fi
-if [ "{{ latest }}" = "true" ] ; then
+if [ "{{ latest }}" = "True" ] ; then
     latest_flag="--latest true"
 fi
-if [ "{{ latest_specified }}" = "true" ] ; then
+if [ "{{ latest_specified }}" = "True" ] ; then
     latest_specified_flag="--latest-specified true"
 fi
-if [ "{{ download }}" = "false" ] ; then
+if [ "{{ download }}" = "False" ] ; then
     download_flag="--no-download"
 fi
 if [ -f "{{ jenkins_war_location }}" ] ; then
