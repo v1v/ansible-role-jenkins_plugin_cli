@@ -8,11 +8,16 @@
 
   pre_tasks:
     - include_tasks: java-8.yml
+    - include_tasks: jenkins.yml
 
   roles:
     - role: geerlingguy.java
     - role: geerlingguy.jenkins
-    - role: v1v.jenkins_plugin_cli
+
+  tasks:
+    - name: "Include jenkins_plugin_cli"
+      include_role:
+        name: "jenkins_plugin_cli"
 
   post_tasks:
     - name: Check if Jenkins is running.

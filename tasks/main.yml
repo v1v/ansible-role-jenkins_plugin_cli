@@ -30,9 +30,9 @@
     mode: 0440
   changed_when: false
   register: get_result
-  until: get_result is success
-  retries: 3
-  delay: 2
+  until: "'OK' in get_result.msg or '304' in get_result.msg or 'file already exists' in get_result.msg"
+  retries: 5
+  delay: 10
 
 - name: Download current plugin versions from Jenkins update site.
   get_url:
@@ -43,9 +43,9 @@
     mode: 0440
   changed_when: false
   register: get_result
-  until: get_result is success
-  retries: 3
-  delay: 2
+  until: "'OK' in get_result.msg or '304' in get_result.msg or 'file already exists' in get_result.msg"
+  retries: 5
+  delay: 10
 
 - name: Run the jenkins plugins CLI.
   shell: >

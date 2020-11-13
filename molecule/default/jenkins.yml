@@ -1,0 +1,4 @@
+---
+- name: Set the jenkins version variable.
+  set_fact:
+    jenkins_version: "2.253"
