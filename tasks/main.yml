@@ -61,4 +61,5 @@
     mode: 0750
 
 - name: Run the jenkins plugins CLI.
-  shell: /opt/jenkins-plugins-cli.sh
+  command: /opt/jenkins-plugins-cli.sh
+  changed_when: true
