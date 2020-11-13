@@ -34,6 +34,11 @@
   retries: 5
   delay: 10
 
+- name: Remove first and last line from Jenkins update site json file.
+  replace:  # noqa 208
+    path: "{{ jenkins_home }}/updates/default.json"
+    regexp: "1d;$d"
+
 - name: Download current plugin versions from Jenkins update site.
   get_url:
     url: "{{ jenkins_plugin_info_url }}"
@@ -49,10 +54,28 @@
 
 - name: Run the jenkins plugins CLI.
   shell: >
-    java "{{ jenkins_plugin_cli_java_opts }}" -jar "{{ jenkins_plugin_cli_location }}" \
-      --plugin-file {{ jenkins_home }}/plugins.txt \
+    ## Enable flags based on the ansible variables
+    if [ -z "{{ plugins }}" ] ; then
+      plugins_flag="--plugins {{ plugins }}"
+    fi
+    if [ -e "{{ jenkins_home }}/plugins.txt" ] ; then
+      plugin_file_flag="--plugin-file {{ jenkins_home }}/plugins.txt"
+    fi
+    if [ -e "{{ jenkins_home }}/updates/default.json" ] ; then
+      jenkins_update_center_flag="--jenkins-update-center file:////{{ jenkins_home }}/updates/default.json"
+    fi
+    if [ -e "{{ jenkins_home }}/updates/plugin-versions.json" ] ; then
+      jenkins_plugin_info_flag="--jenkins-plugin-info file:////{{ jenkins_home }}/updates/plugin-versions.json"
+    fi
+    if [ "{{ skip_failed_plugins }}" == "true" ] ; then
+      skip_failed_plugins_flag="--skip-failed-plugin"
+    fi
+    java -jar {{ jenkins_plugin_cli_location }} \
       --verbose \
-      --war {{ jenkins_war_location }} \
-      --jenkins-update-center "{{ jenkins_home }}/updates/default.json"
-      --jenkins-plugin-info "{{ jenkins_home }}/updates/plugin-versions.json"
+      --war {{ jenkins_war_location }}
+      ${plugins_flag} \
+      ${plugin_file_flag} \
+      ${skip_failed_plugins} \
+      ${jenkins_update_center_flag} \
+      ${jenkins_plugin_info_flag} \
   changed_when: true

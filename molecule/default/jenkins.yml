@@ -1,4 +1,19 @@
 ---
-- name: Set the jenkins version variable.
-  set_fact:
-    jenkins_version: "2.253"
+
+- name: Create Jenkins share directory.
+  file:
+    path: "/usr/share/jenkins"
+    state: directory
+    mode: 0777
+
+- name: Get the jenkins warfile.
+  get_url:
+    url: "http://mirror.xmission.com/jenkins/war/2.252/jenkins.war"
+    dest: "/usr/share/jenkins/jenkins.war"
+    mode: 0777
+  register: warfile_get
+  until: "'OK' in warfile_get.msg or '304' in warfile_get.msg or 'file already exists' in warfile_get.msg"
+  retries: 5
+  delay: 10
+  check_mode: false
+
