@@ -1,28 +1,33 @@
 ---
+
+## jenkins specifics
 jenkins_home: /var/lib/jenkins
-jenkins_war_location: ""
 jenkins_user: jenkins
 jenkins_group: "{{ jenkins_user }}"
 
+## jenkins-plugin-manager specific version and location
 jenkins_plugin_cli_location: "/opt/jpl.jar"
 jenkins_plugin_cli_url: "https://github.com/jenkinsci/plugin-installation-manager-tool/releases/download/2.1.1/jenkins-plugin-manager-2.1.1.jar"
 
-## Options for the jenkins-plugin-manager cli
-plugin_file: ""
-plugin_download_directory: ""
-plugins: ""
-verbose: false
-output: stdout
+## CLI options for the jenkins-plugin-manager cli
+## https://github.com/jenkinsci/plugin-installation-manager-tool#cli-options
+download: true
+jenkins_experimental_update_center_url:
+jenkins_incrementals_repo_mirror_url:
+jenkins_plugin_info_url:
+jenkins_update_center_url:
+jenkins_war_location:
 latest: false
 latest_specified: false
-jenkins_update_center_url: "https://updates.jenkins.io/current/update-center.actual.json"
-jenkins_experimental_update_center_url: "https://updates.jenkins.io/experimental/update-center.actual.json"
-jenkins_plugin_info_url: "https://updates.jenkins.io/current/plugin-versions.json"
-jenkins_incrementals_repo_mirror_url: "https://repo.jenkins-ci.org/incrementals"
-download: true
+output: stdout
+plugin_download_directory:
+plugin_file:
+plugins:
+verbose: false
 
-## Set env variables TODO
-CACHE_DIR: ~/.cache/jenkins-plugin-management-cli
+## Advanced configuration for the jenkins-plugin-manager cli that are configured as env variables
+## https://github.com/jenkinsci/plugin-installation-manager-tool#advanced-configuration
+jenkins_plugin_cli_cache_location:
 jenkins_uc_download_url: ""
 
 ## Set java properties https://github.com/jenkinsci/plugin-installation-manager-tool#proxy-support
