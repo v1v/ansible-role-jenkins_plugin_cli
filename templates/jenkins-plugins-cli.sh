@@ -41,6 +41,9 @@ fi
 if [ -n "{{ jenkins_uc_download_url }}" ] ; then
     export JENKINS_UC_DOWNLOAD="{{ jenkins_uc_download_url }}"
 fi
+if [ -n "{{ jenkins_plugin_cli_cache_location }}" ] ; then
+    export CACHE_DIR="{{ jenkins_plugin_cli_cache_location }}"
+fi
 
 ## Enable debug output
 set -x
