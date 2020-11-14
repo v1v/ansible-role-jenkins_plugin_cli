@@ -3,7 +3,7 @@ dependencies: []
 
 galaxy_info:
   author: v1v
-  role_name: jenkins-plugin-cli
+  role_name: jenkins_plugin_cli
   description: Plugin Installation Manager Tool for Jenkins
   license: "license MIT"
   min_ansible_version: 2.4

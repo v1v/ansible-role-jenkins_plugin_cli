@@ -1,5 +1,4 @@
 ---
-# tasks file for ansible-role-jenkins-plugin-cli
 
 - name: Get the jenkins_plugin_cli jarfile.
   get_url:
@@ -24,16 +23,21 @@
 
 - name: Download current plugin updates center from Jenkins update site.
   get_url:
-    url: "{{ jenkins_updates_center_url }}"
+    url: "{{ jenkins_update_center_url }}"
     dest: "{{ jenkins_home }}/updates/default.json"
     owner: "{{ jenkins_user }}"
     group: "{{ jenkins_group }}"
     mode: 0440
   changed_when: false
   register: get_result
-  until: get_result is success
-  retries: 3
-  delay: 2
+  until: "'OK' in get_result.msg or '304' in get_result.msg or 'file already exists' in get_result.msg"
+  retries: 5
+  delay: 10
+
+- name: Remove first and last line from Jenkins update site json file.
+  replace:  # noqa 208
+    path: "{{ jenkins_home }}/updates/default.json"
+    regexp: "1d;$d"
 
 - name: Download current plugin versions from Jenkins update site.
   get_url:
@@ -44,17 +48,18 @@
     mode: 0440
   changed_when: false
   register: get_result
-  until: get_result is success
-  retries: 3
-  delay: 2
+  until: "'OK' in get_result.msg or '304' in get_result.msg or 'file already exists' in get_result.msg"
+  retries: 5
+  delay: 10
+
+- name: Configure jenkins-plugins-cli
+  template:
+    src: jenkins-plugins-cli.sh
+    dest: "/opt/jenkins-plugins-cli.sh"
+    owner: "{{ jenkins_user }}"
+    group: "{{ jenkins_group }}"
+    mode: 0750
 
 - name: Run the jenkins plugins CLI.
-  shell: >
-    java "{{ jenkins_plugin_cli_java_opts }}" -jar "{{ jenkins_plugin_cli_location }}" \
-      --plugin-file {{ jenkins_home }}/plugins.txt \
-      --verbose \
-      --war {{ jenkins_war_location }} \
-      --jenkins-update-center "{{ jenkins_home }}/updates/default.json"
-      --jenkins-plugin-info "{{ jenkins_home }}/updates/plugin-versions.json" 
-  owner: "{{ jenkins_user }}"
-  group: "{{ jenkins_group }}"
+  command: /opt/jenkins-plugins-cli.sh
+  changed_when: true

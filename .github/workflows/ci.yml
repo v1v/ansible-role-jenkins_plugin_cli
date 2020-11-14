@@ -2,10 +2,13 @@
 name: CI
 'on':
   pull_request:
+  push:
+    branches:
+      - master
 
 defaults:
   run:
-    working-directory: 'v1v.jenkins-plugin-cli'
+    working-directory: 'v1v.jenkins_plugin_cli'
 
 jobs:
 
@@ -16,7 +19,7 @@ jobs:
       - name: Check out the codebase.
         uses: actions/checkout@v2
         with:
-          path: 'v1v.jenkins-plugin-cli'
+          path: 'v1v.jenkins_plugin_cli'
 
       - name: Set up Python 3.
         uses: actions/setup-python@v2
@@ -24,12 +27,10 @@ jobs:
           python-version: '3.x'
 
       - name: Install test dependencies.
-        run: pip3 install yamllint ansible-lint
+        run: make setup-lint
 
       - name: Lint code.
-        run: |
-          yamllint .
-          ansible-lint
+        run: make lint
   molecule:
     name: Molecule
     runs-on: ubuntu-latest
@@ -43,7 +44,7 @@ jobs:
       - name: Check out the codebase.
         uses: actions/checkout@v2
         with:
-          path: 'v1v.jenkins-plugin-cli'
+          path: 'v1v.jenkins_plugin_cli'
 
       - name: Set up Python 3.
         uses: actions/setup-python@v2
@@ -51,7 +52,7 @@ jobs:
           python-version: '3.x'
 
       - name: Install test dependencies.
-        run: pip3 install ansible molecule[docker] docker
+        run: make setup-molecule
 
       - name: Run Molecule tests.
         run: molecule test

@@ -1,37 +1,29 @@
 ---
 jenkins_home: /var/lib/jenkins
-jenkins_war_location: "/usr/share/jenkins/jenkins.war"
+jenkins_war_location: ""
 jenkins_user: jenkins
 jenkins_group: "{{ jenkins_user }}"
 
 jenkins_plugin_cli_location: "/opt/jpl.jar"
 jenkins_plugin_cli_url: "https://github.com/jenkinsci/plugin-installation-manager-tool/releases/download/2.1.1/jenkins-plugin-manager-2.1.1.jar"
-jenkins_plugin_installation_war: "/usr/share/jenkins/jenkins.war"
-install_jenkins_plugin_with_installation_manager: true
 
-## Options for the jenkins-plugin-manager cli 
-plugin_file:
-plugin_download_directory:
-plugins:
-list: false
+## Options for the jenkins-plugin-manager cli
+plugin_file: ""
+plugin_download_directory: ""
+plugins: ""
 verbose: false
-view_all_security_warnings: false
-view_security_warnings: false
-available_updates: false
 output: stdout
 latest: false
 latest_specified: false
-jenkins_updates_center_url: "https://updates.jenkins.io/current/update-center.actual.json"
-jenkins_experimental_updates_center_url: "https://updates.jenkins.io/experimental/update-center.actual.json"
+jenkins_update_center_url: "https://updates.jenkins.io/current/update-center.actual.json"
+jenkins_experimental_update_center_url: "https://updates.jenkins.io/experimental/update-center.actual.json"
 jenkins_plugin_info_url: "https://updates.jenkins.io/current/plugin-versions.json"
 jenkins_incrementals_repo_mirror_url: "https://repo.jenkins-ci.org/incrementals"
 download: true
-skip_failed_plugins: false
 
 ## Set env variables TODO
 CACHE_DIR: ~/.cache/jenkins-plugin-management-cli
 JENKINS_UC_DOWNLOAD: fooo
 
-
 ## Set java properties https://github.com/jenkinsci/plugin-installation-manager-tool#proxy-support
-jenkins_plugin_cli_java_opts: ""
+jenkins_plugin_cli_java_options: ""
