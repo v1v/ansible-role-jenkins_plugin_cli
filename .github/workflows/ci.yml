@@ -39,6 +39,8 @@ jobs:
         include:
           - distro: ubuntu1804
             playbook: converge.yml
+          - distro: ubuntu1804
+            playbook: versions.yml
 
     steps:
       - name: Check out the codebase.

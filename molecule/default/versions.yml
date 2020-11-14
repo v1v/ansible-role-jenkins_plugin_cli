@@ -1,0 +1,43 @@
+---
+- name: Converge
+  hosts: all
+  become: true
+
+  vars:
+    plugins: "workflow-step-api"
+    jenkins_war_location: "/usr/share/jenkins/jenkins.war"
+    jenkins_user: "root"
+    jenkins_group: "root"
+    jenkins_update_center_url: "http://mirror.xmission.com/jenkins/updates/current/update-center.json"
+    jenkins_experimental_update_center_url: "http://mirror.xmission.com/jenkins/updates/experimental/update-center.json"
+    jenkins_plugin_info_url: "http://mirror.xmission.com/jenkins/updates/current/plugin-versions.json"
+    jenkins_uc_download_url: "https://mirror.xmission.com/jenkins/"
+
+  pre_tasks:
+    - include_tasks: java-8.yml
+    - include_tasks: jenkins.yml
+
+  roles:
+    - role: geerlingguy.java
+    - role: v1v.jenkins_plugin_cli
+
+  post_tasks:
+    - name: Verify workflow-step-api plugin has been downloaded.
+      stat:
+        path: "/usr/share/jenkins/ref/plugins/workflow-step-api.jpi"
+      register: plugin
+
+    - name: Fail if workflow-step-api.jpi file doesn't exist.
+      fail:
+      when: not plugin.stat.exists
+
+    - name: List plugins directory contents.
+      command: "ls /usr/share/jenkins/ref/plugins"
+      register: plugins_contents
+      changed_when: false
+      tags: ['skip_ansible_lint']
+
+    - name: Unarchive plugin
+      unarchive:
+        src: /usr/share/jenkins/ref/plugins/workflow-step-api.jpi
+        dest: /usr/share/jenkins/ref/plugins/workflow-step-api
