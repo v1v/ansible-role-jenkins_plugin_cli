@@ -83,6 +83,10 @@ Sets the location of plugin information.
 
 Sets the URL from where plugins will be downloaded from. Often used to cache or to proxy the Jenkins plugin download site. If set then all plugins will be downloaded through that URL.
 
+    jenkins_plugin_cli_cache_location: ""
+
+Sets the directory where the plugins update center cache is located. By default it will be in ~/.cache/jenkins-plugin-management-cli, if the user doesn't have a home directory when it will go to: $(pwd)/.cache/jenkins-plugin-management-cli.
+
     download: true
 
 Set to false to not download plugins.
