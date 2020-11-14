@@ -62,4 +62,4 @@
 
 - name: Run the jenkins plugins CLI.
   command: /opt/jenkins-plugins-cli.sh
-  changed_when: true
+  changed_when: false
