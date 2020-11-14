@@ -33,11 +33,13 @@
   until: "'OK' in get_result.msg or '304' in get_result.msg or 'file already exists' in get_result.msg"
   retries: 5
   delay: 10
+  when: jenkins_update_center_url is defined
 
 - name: Remove first and last line from Jenkins update site json file.
   replace:  # noqa 208
     path: "{{ jenkins_home }}/updates/default.json"
     regexp: "1d;$d"
+  when: jenkins_update_center_url is defined
 
 - name: Download current plugin versions from Jenkins update site.
   get_url:
@@ -51,6 +53,7 @@
   until: "'OK' in get_result.msg or '304' in get_result.msg or 'file already exists' in get_result.msg"
   retries: 5
   delay: 10
+  when: jenkins_plugin_info_url is defined
 
 - name: Configure jenkins-plugins-cli
   template:
