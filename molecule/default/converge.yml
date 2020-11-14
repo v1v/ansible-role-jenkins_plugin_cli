@@ -12,9 +12,7 @@
     jenkins_plugin_info_url: "http://mirror.xmission.com/jenkins/updates/current/plugin-versions.json"
 
   pre_tasks:
-    - include_tasks: java-8.yml
     - include_tasks: jenkins.yml
 
   roles:
-    - role: geerlingguy.java
     - role: v1v.jenkins_plugin_cli

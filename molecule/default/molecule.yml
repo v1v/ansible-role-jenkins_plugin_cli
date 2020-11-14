@@ -5,12 +5,12 @@ driver:
   name: docker
 platforms:
   - name: instance
-    image: "geerlingguy/docker-${MOLECULE_DISTRO:-ubuntu1804}-ansible:latest"
+    image: "${MOLECULE_IMAGE:-adoptopenjdk:8-jre}"
     command: ${MOLECULE_DOCKER_COMMAND:-""}
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     privileged: true
-    pre_build_image: true
+    pre_build_image: false
 provisioner:
   name: ansible
   playbooks:
