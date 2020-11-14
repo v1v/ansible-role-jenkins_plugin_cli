@@ -38,6 +38,9 @@ fi
 if [ -n "{{ jenkins_incrementals_repo_mirror_url }}" ] ; then
     jenkins_incrementals_repo_mirror_flag="--jenkins-incrementals-repo-mirror {{ jenkins_incrementals_repo_mirror_url }}"
 fi
+if [ -n "{{ jenkins_uc_download_url }}" ] ; then
+    export JENKINS_UC_DOWNLOAD="{{ jenkins_uc_download_url }}"
+fi
 
 ## Enable debug output
 set -x
