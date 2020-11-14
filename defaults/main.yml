@@ -23,7 +23,7 @@ download: true
 
 ## Set env variables TODO
 CACHE_DIR: ~/.cache/jenkins-plugin-management-cli
-JENKINS_UC_DOWNLOAD: fooo
+jenkins_uc_download_url: ""
 
 ## Set java properties https://github.com/jenkinsci/plugin-installation-manager-tool#proxy-support
 jenkins_plugin_cli_java_options: ""

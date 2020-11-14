@@ -79,6 +79,10 @@ Sets the incrementals repository mirror.
 
 Sets the location of plugin information.
 
+    jenkins_uc_download_url: ""
+
+Sets the URL from where plugins will be downloaded from. Often used to cache or to proxy the Jenkins plugin download site. If set then all plugins will be downloaded through that URL.
+
     download: true
 
 Set to false to not download plugins.
