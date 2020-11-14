@@ -33,11 +33,11 @@ Sets the jenkins-plugins-cli URL where the jarfile is stored.
 
     plugin_file: ""
 
-Path to the `plugins.txt`, or `plugins.yaml` file, which contains a list of plugins to install. If this file does not exist, or if the file exists, but does not have a .txt or .yaml/.yml extension, then an error will be thrown.
+Path to the `plugins.txt`, or `plugins.yaml` file, which contains a list of plugins to install. If this file does not exist, or if the file exists, but does not have a `.txt` or `.yaml/.yml` extension, then an error will be thrown.
 
     plugin_download_directory: ""
 
-Directory in which to install plugins. If no directory configuration is provided, the defaults are C:\ProgramData\Jenkins\Reference\Plugins if the detected operating system is Microsoft Windows, or /usr/share/jenkins/ref/plugins otherwise.
+Directory in which to install plugins. If no directory configuration is provided, the defaults are `C:\ProgramData\Jenkins\Reference\Plugins` if the detected operating system is Microsoft Windows, or `/usr/share/jenkins/ref/plugins` otherwise. Though that's implicitly defined by the jenkins-plugin-cli.
 
     plugins: ""
 
@@ -45,15 +45,15 @@ List of plugins to install (see plugin format [here](https://github.com/jenkinsc
 
     jenkins_war_location: ""
 
-Path to Jenkins war file. If no war file is entered, will default to /usr/share/jenkins/jenkins.war or C:\ProgramData\Jenkins\jenkins.war, depending on the user's OS.
+Path to Jenkins war file. If no war file is entered, will default to `/usr/share/jenkins/jenkins.war` or `C:\ProgramData\Jenkins\jenkins.war`, depending on the user's OS. Though that's implicitly defined by the jenkins-plugin-cli.
 
     verbose: false
 
 Set to true to show additional information about plugin dependencies and the download process.
 
-    output: "stdout"
+    output: stdout
 
-Format to output plugin updates file in, stdout is the default. Options: "json", "stdout". "yaml"
+Format to output plugin updates file in, `stdout` is the default. Options: `json`, `stdout` and `yaml`.
 
     latest: false
 
@@ -63,29 +63,29 @@ Set to false to download the minimum required version of all dependencies.
 
 Set to true to download latest dependencies of any plugin that is requested to have the latest version. All other plugin dependency versions are determined by the update center metadata or the plugin MANIFEST.MF.
 
-    jenkins_update_center_url: https://updates.jenkins.io/update-center.actual.json
+    jenkins_update_center_url:
 
-Sets the main update center.
+Sets the main update center. By default it will be in `https://updates.jenkins.io/update-center.actual.json` Though that's implicitly defined by the jenkins-plugin-cli.
 
-    jenkins_experimental_update_center_url: https://updates.jenkins.io/experimental/update-center.actual.json
+    jenkins_experimental_update_center_url:
 
-Sets the experimental update center.
+Sets the experimental update center. By default it will be in `https://updates.jenkins.io/experimental/update-center.actual.json` Though that's implicitly defined by the jenkins-plugin-cli.
 
-    jenkins_incrementals_repo_mirror_url: https://repo.jenkins-ci.org/incrementals
+    jenkins_incrementals_repo_mirror_url:
 
-Sets the incrementals repository mirror.
+Sets the incrementals repository mirror. By default it will be in `https://repo.jenkins-ci.org/incrementals` Though that's implicitly defined by the jenkins-plugin-cli.
 
-    jenkins_plugin_info_url: https://updates.jenkins.io/current/plugin-versions.json
+    jenkins_plugin_info_url:
 
-Sets the location of plugin information.
+Sets the location of plugin information. By default it will be in `https://updates.jenkins.io/current/plugin-versions.json` Though that's implicitly defined by the jenkins-plugin-cli.
 
     jenkins_uc_download_url: ""
 
 Sets the URL from where plugins will be downloaded from. Often used to cache or to proxy the Jenkins plugin download site. If set then all plugins will be downloaded through that URL.
 
-    jenkins_plugin_cli_cache_location: ""
+    jenkins_plugin_cli_cache_location:
 
-Sets the directory where the plugins update center cache is located. By default it will be in ~/.cache/jenkins-plugin-management-cli, if the user doesn't have a home directory when it will go to: $(pwd)/.cache/jenkins-plugin-management-cli.
+Sets the directory where the plugins update center cache is located. By default it will be in `~/.cache/jenkins-plugin-management-cli`, if the user doesn't have a home directory when it will go to: `$(pwd)/.cache/jenkins-plugin-management-cli`. Though that's implicitly defined by the jenkins-plugin-cli.
 
     download: true
 
