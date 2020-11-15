@@ -41,3 +41,4 @@
       unarchive:
         src: /usr/share/jenkins/ref/plugins/workflow-step-api.jpi
         dest: /usr/share/jenkins/ref/plugins/workflow-step-api
+        remote_src: yes
