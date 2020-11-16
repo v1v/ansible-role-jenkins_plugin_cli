@@ -7,7 +7,6 @@
     plugins: "job-dsl"
     jenkins_user: "root"
     jenkins_group: "root"
-    jenkins_update_center_url: "http://mirror.xmission.com/jenkins/updates/stable/update-center.actual.json"
     jenkins_experimental_update_center_url: "http://mirror.xmission.com/jenkins/updates/experimental/update-center.json"
     jenkins_plugin_info_url: "http://mirror.xmission.com/jenkins/updates/current/plugin-versions.json"
     jenkins_uc_download_url: "https://mirror.xmission.com/jenkins/"
