@@ -27,7 +27,7 @@ if [ "{{ download }}" = "False" ] ; then
     download_flag="--no-download"
 fi
 if [ -f "{{ jenkins_war_location }}" ] ; then
-    war_flag=--war "{{ jenkins_war_location }}"
+    war_flag="--war {{ jenkins_war_location }}"
 fi
 if [ -e "{{ jenkins_home }}/updates/default.json" ] ; then
     jenkins_update_center_flag="--jenkins-update-center file://{{ jenkins_home }}/updates/default.json"

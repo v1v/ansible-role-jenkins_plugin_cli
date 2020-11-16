@@ -1,0 +1,47 @@
+---
+- name: Converge
+  hosts: all
+  become: true
+
+  vars:
+    plugins: "workflow-step-api"
+    jenkins_war_location: "/usr/share/jenkins/jenkins.war"
+    jenkins_user: "root"
+    jenkins_group: "root"
+    jenkins_experimental_update_center_url: "http://mirror.xmission.com/jenkins/updates/experimental/update-center.json"
+    jenkins_plugin_info_url: "http://mirror.xmission.com/jenkins/updates/current/plugin-versions.json"
+    jenkins_uc_download_url: "https://mirror.xmission.com/jenkins/"
+
+  pre_tasks:
+    - include_tasks: java-8.yml
+    - include_tasks: jenkins.yml
+
+  roles:
+    - role: geerlingguy.java
+    - role: v1v.jenkins_plugin_cli
+
+  post_tasks:
+    - name: Verify workflow-step-api plugin has been downloaded.
+      stat:
+        path: "/usr/share/jenkins/ref/plugins/workflow-step-api.jpi"
+      register: plugin
+
+    - name: Fail if workflow-step-api.jpi file doesn't exist.
+      fail:
+      when: not plugin.stat.exists
+
+    - name: Unarchive plugin
+      command: "jar -xf workflow-step-api.jpi"
+      args:
+        chdir: /usr/share/jenkins/ref/plugins/
+        creates: /usr/share/jenkins/ref/plugins/META-INF/MANIFEST.MF
+
+    - name: Read version plugin
+      shell:
+        cmd: cat META-INF/MANIFEST.MF | grep -i 'Plugin-Version' | cut -d ' ' -f2
+        chdir: /usr/share/jenkins/ref/plugins
+      register: version
+
+    - name: Fail if workflow-step-api version is not 2.22
+      fail:
+      when: version.stdout != '2.22'
