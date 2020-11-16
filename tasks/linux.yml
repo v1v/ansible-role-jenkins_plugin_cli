@@ -7,7 +7,7 @@
     dest: "{{ jenkins_plugin_cli_location }}"
     owner: "{{ jenkins_user }}"
     group: "{{ jenkins_group }}"
-    mode: '0755'
+    mode: 0750
   register: jarfile_get
   until: "'OK' in jarfile_get.msg or '304' in jarfile_get.msg or 'file already exists' in jarfile_get.msg"
   retries: 5

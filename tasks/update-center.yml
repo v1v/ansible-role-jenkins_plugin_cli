@@ -19,13 +19,13 @@
   until: "'OK' in get_result.msg or '304' in get_result.msg or 'file already exists' in get_result.msg"
   retries: 5
   delay: 10
-  when: jenkins_update_center_url is defined and jenkins_update_center_url != ""
+  when: jenkins_update_center_url | default(false)
 
 - name: Remove first and last line from Jenkins update site json file.
   replace:  # noqa 208
     path: "{{ jenkins_home }}/updates/default.json"
     regexp: "1d;$d"
-  when: jenkins_update_center_url is defined and jenkins_update_center_url != ""
+  when: jenkins_update_center_url | default(false)
 
 - name: Download plugin versions from Jenkins update site.
   get_url:
@@ -39,7 +39,7 @@
   until: "'OK' in get_result.msg or '304' in get_result.msg or 'file already exists' in get_result.msg"
   retries: 5
   delay: 10
-  when: jenkins_plugin_info_url is defined and jenkins_plugin_info_url != ""
+  when: jenkins_plugin_info_url | default(false)
 
 - name: Download experimental updates center from Jenkins update site.
   get_url:
@@ -53,10 +53,10 @@
   until: "'OK' in get_result.msg or '304' in get_result.msg or 'file already exists' in get_result.msg"
   retries: 5
   delay: 10
-  when: jenkins_experimental_update_center_url is defined and jenkins_experimental_update_center_url != ""
+  when: jenkins_experimental_update_center_url | default(false)
 
 - name: Remove first and last line from Jenkins experimental update site json file.
   replace:  # noqa 208
     path: "{{ jenkins_home }}/updates/experimental.json"
     regexp: "1d;$d"
-  when: jenkins_experimental_update_center_url is defined and jenkins_experimental_update_center_url != ""
+  when: jenkins_experimental_update_center_url | default(false)
