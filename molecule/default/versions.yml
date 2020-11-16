@@ -41,6 +41,7 @@
         cmd: cat META-INF/MANIFEST.MF | grep -i 'Plugin-Version' | cut -d ' ' -f2
         chdir: /usr/share/jenkins/ref/plugins
       register: version
+      changed_when: false
 
     - name: Fail if workflow-step-api version is not 2.22
       fail:
