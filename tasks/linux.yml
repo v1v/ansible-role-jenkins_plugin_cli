@@ -1,0 +1,27 @@
+---
+- include: update-center.yml
+
+- name: Get the jenkins_plugin_cli jarfile.
+  get_url:
+    url: "{{ jenkins_plugin_cli_url }}"
+    dest: "{{ jenkins_plugin_cli_location }}"
+    owner: "{{ jenkins_user }}"
+    group: "{{ jenkins_group }}"
+    mode: 0750
+  register: jarfile_get
+  until: "'OK' in jarfile_get.msg or '304' in jarfile_get.msg or 'file already exists' in jarfile_get.msg"
+  retries: 5
+  delay: 10
+  check_mode: false
+
+- name: Configure jenkins-plugins-cli
+  template:
+    src: jenkins-plugins-cli.sh
+    dest: "/opt/jenkins-plugins-cli.sh"
+    owner: "{{ jenkins_user }}"
+    group: "{{ jenkins_group }}"
+    mode: 0750
+
+- name: Run the jenkins plugins CLI.
+  command: /opt/jenkins-plugins-cli.sh
+  changed_when: false

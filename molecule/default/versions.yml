@@ -35,6 +35,7 @@
       args:
         chdir: /usr/share/jenkins/ref/plugins/
         creates: /usr/share/jenkins/ref/plugins/META-INF/MANIFEST.MF
+      changed_when: false
 
     - name: Read version plugin
       shell:

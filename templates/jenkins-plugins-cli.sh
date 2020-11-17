@@ -35,8 +35,8 @@ fi
 if [ -e "{{ jenkins_home }}/updates/plugin-versions.json" ] ; then
     jenkins_plugin_info_flag="--jenkins-plugin-info file://{{ jenkins_home }}/updates/plugin-versions.json"
 fi
-if [ -n "{{ jenkins_incrementals_repo_mirror_url }}" ] ; then
-    jenkins_incrementals_repo_mirror_flag="--jenkins-incrementals-repo-mirror {{ jenkins_incrementals_repo_mirror_url }}"
+if [ -e "{{ jenkins_incrementals_repo_mirror_url }}" ] ; then
+    jenkins_incrementals_repo_mirror_flag="--jenkins-incrementals-repo-mirror file://{{ jenkins_home }}/updates/experimental.json"
 fi
 if [ -n "{{ jenkins_uc_download_url }}" ] ; then
     export JENKINS_UC_DOWNLOAD="{{ jenkins_uc_download_url }}"

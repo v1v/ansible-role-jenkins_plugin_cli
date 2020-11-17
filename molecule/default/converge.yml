@@ -28,9 +28,3 @@
     - name: Fail if job-dsl.jpi file doesn't exist.
       fail:
       when: not job_dsl_jpi.stat.exists
-
-    - name: List plugins directory contents.
-      command: "ls /usr/share/jenkins/ref/plugins"
-      register: plugins_contents
-      changed_when: false
-      tags: ['skip_ansible_lint']
