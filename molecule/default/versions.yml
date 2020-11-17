@@ -4,7 +4,7 @@
   become: true
 
   vars:
-    plugins: "workflow-step-api"
+    plugins: "workflow-basic-steps"
     jenkins_war_location: "/usr/share/jenkins/jenkins.war"
     jenkins_user: "root"
     jenkins_group: "root"
@@ -21,17 +21,17 @@
     - role: v1v.jenkins_plugin_cli
 
   post_tasks:
-    - name: Verify workflow-step-api plugin has been downloaded.
+    - name: Verify workflow-basic-steps plugin has been downloaded.
       stat:
-        path: "/usr/share/jenkins/ref/plugins/workflow-step-api.jpi"
+        path: "/usr/share/jenkins/ref/plugins/workflow-basic-steps.jpi"
       register: plugin
 
-    - name: Fail if workflow-step-api.jpi file doesn't exist.
+    - name: Fail if workflow-basic-steps.jpi file doesn't exist.
       fail:
       when: not plugin.stat.exists
 
     - name: Unarchive plugin
-      command: "jar -xf workflow-step-api.jpi"
+      command: "jar -xf workflow-basic-steps.jpi"
       args:
         chdir: /usr/share/jenkins/ref/plugins/
         creates: /usr/share/jenkins/ref/plugins/META-INF/MANIFEST.MF
@@ -40,6 +40,7 @@
       shell:
         cmd: cat META-INF/MANIFEST.MF | grep -i 'Plugin-Version' | cut -d ' ' -f2
         chdir: /usr/share/jenkins/ref/plugins
+      changed_when: false
       register: version
 
     - name: Fail if workflow-step-api version is not 2.22
