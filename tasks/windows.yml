@@ -1,3 +1,4 @@
 ---
 - name: Unsupported yet
   fail:
+    msg: Windows is not supported yet.

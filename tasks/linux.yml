@@ -1,5 +1,6 @@
 ---
-- include: update-center.yml
+- include: validate-parameters.yml
+- include: flags.yml
 
 - name: Get the jenkins_plugin_cli jarfile.
   get_url:
@@ -14,14 +15,23 @@
   delay: 10
   check_mode: false
 
-- name: Configure jenkins-plugins-cli
-  template:
-    src: jenkins-plugins-cli.sh
-    dest: "/opt/jenkins-plugins-cli.sh"
-    owner: "{{ jenkins_user }}"
-    group: "{{ jenkins_group }}"
-    mode: 0750
-
 - name: Run the jenkins plugins CLI.
-  command: /opt/jenkins-plugins-cli.sh
+  shell: >
+    {{ jenkins_uc_download_flag | default('') }}
+    {{ jenkins_plugin_cli_cache_flag | default('') }}
+    echo 'running'
+    java {{ jenkins_plugin_cli_java_options }} \
+      -jar "{{ jenkins_plugin_cli_location }}" \
+      {{ plugin_download_directory_flag | default('') }} \
+      {{ verbose_flag | default('') }} \
+      {{ war_flag | default('') }} \
+      {{ latest_specified_flag | default('') }} \
+      {{ latest_flag | default('') }} \
+      {{ output_flag | default('') }} \
+      {{ download_flag | default('') }} \
+      {{ plugins_flag | default('') }} \
+      {{ plugin_file_flag | default('') }} \
+      {{ jenkins_update_center_flag | default('') }} \
+      {{ jenkins_plugin_info_flag | default('') }} \
+      {{ jenkins_incrementals_repo_mirror_flag | default('') }}
   changed_when: false
