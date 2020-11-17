@@ -38,4 +38,3 @@
 
 - debug:
     var: result
-    verbosity: 2

@@ -22,7 +22,7 @@
 
 - name: Create --no-download flag.
   set_fact: download_flag="--no-download"
-  when: download | default(false)
+  when: not (download | default(false))
 
 - name: Create --verbose flag.
   set_fact: verbose_flag="--verbose"
