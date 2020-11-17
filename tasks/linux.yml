@@ -16,10 +16,9 @@
   check_mode: false
 
 - name: Run the jenkins plugins CLI.
-  shell: >
+  shell: |
     {{ jenkins_uc_download_flag | default('') }}
     {{ jenkins_plugin_cli_cache_flag | default('') }}
-    echo 'running'
     java {{ jenkins_plugin_cli_java_options }} \
       -jar "{{ jenkins_plugin_cli_location }}" \
       {{ plugin_download_directory_flag | default('') }} \
@@ -35,3 +34,8 @@
       {{ jenkins_plugin_info_flag | default('') }} \
       {{ jenkins_incrementals_repo_mirror_flag | default('') }}
   changed_when: false
+  register: result
+
+- debug:
+    var: result
+    verbosity: 2

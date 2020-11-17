@@ -67,4 +67,3 @@
   fail:
     msg: jenkins_plugin_cli_location has been defined but it does not exist.
   when: (jenkins_plugin_cli_location | default(false)) and not cli.stat.exists
-
