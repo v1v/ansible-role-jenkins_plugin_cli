@@ -31,19 +31,19 @@ The location at which the `jenkins-plugin-manager.jar` jarfile will be kept. Thi
 
 Sets the jenkins-plugins-cli URL where the jarfile is stored.
 
-    plugin_file: ""
+    plugin_file:
 
 Path to the `plugins.txt`, or `plugins.yaml` file, which contains a list of plugins to install. If this file does not exist, or if the file exists, but does not have a `.txt` or `.yaml/.yml` extension, then an error will be thrown.
 
-    plugin_download_directory: ""
+    plugin_download_directory:
 
 Directory in which to install plugins. If no directory configuration is provided, the defaults are `C:\ProgramData\Jenkins\Reference\Plugins` if the detected operating system is Microsoft Windows, or `/usr/share/jenkins/ref/plugins` otherwise. Though that's implicitly defined by the jenkins-plugin-cli.
 
-    plugins: ""
+    plugins:
 
 List of plugins to install (see plugin format [here](https://github.com/jenkinsci/plugin-installation-manager-tool#plugin-input-format)), separated by a space.
 
-    jenkins_war_location: ""
+    jenkins_war_location:
 
 Path to Jenkins war file. If no war file is entered, will default to `/usr/share/jenkins/jenkins.war` or `C:\ProgramData\Jenkins\jenkins.war`, depending on the user's OS. Though that's implicitly defined by the jenkins-plugin-cli.
 
@@ -79,7 +79,7 @@ Sets the incrementals repository mirror. By default it will be in `https://repo.
 
 Sets the location of plugin information. By default it will be in `https://updates.jenkins.io/current/plugin-versions.json` Though that's implicitly defined by the jenkins-plugin-cli.
 
-    jenkins_uc_download_url: ""
+    jenkins_uc_download_url:
 
 Sets the URL from where plugins will be downloaded from. Often used to cache or to proxy the Jenkins plugin download site. If set then all plugins will be downloaded through that URL.
 
@@ -91,7 +91,7 @@ Sets the directory where the plugins update center cache is located. By default 
 
 Set to false to not download plugins.
 
-    jenkins_plugin_cli_java_options: ""
+    jenkins_plugin_cli_java_options:
 
 Extra Java options for the jenkins-plugin-cli command can be set with the var `jenkins_plugin_cli_java_options`. For example, if you are running behind a proxy server, configure this option appropriately `-Dhttp.proxyPort=3128 -Dhttp.proxyHost=myproxy.example.com`.
 

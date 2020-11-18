@@ -1,0 +1,68 @@
+---
+
+- name: Check that update center URL is reachable.
+  uri:
+    url: "{{ jenkins_update_center_url }}"
+  changed_when: false
+  register: get_result
+  until: "'OK' in get_result.msg or '304' in get_result.msg"
+  retries: 3
+  delay: 3
+  when: jenkins_update_center_url | default(false)
+
+- name: Check that plugin versions URL is reachable.
+  uri:
+    url: "{{ jenkins_plugin_info_url }}"
+  changed_when: false
+  register: get_result
+  until: "'OK' in get_result.msg or '304' in get_result.msg"
+  retries: 3
+  delay: 3
+  when: jenkins_plugin_info_url | default(false)
+
+- name: Check that update center download URL is reachable.
+  uri:
+    url: "{{ jenkins_uc_download_url }}"
+  changed_when: false
+  register: get_result
+  until: "'OK' in get_result.msg or '304' in get_result.msg"
+  retries: 3
+  delay: 3
+  when: jenkins_uc_download_url | default(false)
+
+- name: Check that experimental update center URL is reachable.
+  uri:
+    url: "{{ jenkins_experimental_update_center_url }}"
+  changed_when: false
+  register: get_result
+  until: "'OK' in get_result.msg or '304' in get_result.msg"
+  retries: 3
+  delay: 3
+  when: jenkins_experimental_update_center_url | default(false)
+
+- name: Find out plugin_file file exists or not
+  stat:
+    path: "{{ plugin_file }}"
+  register: plugin
+  when: plugin_file | default(false)
+
+- name: Fail if plugin_file file doesn't exist.
+  fail:
+    msg: plugin_file has been defined but it does not exist.
+  when: (plugin_file | default(false)) and not plugin.stat.exists
+
+- name: Find out jenkins_war_location file exists or not
+  stat:
+    path: "{{ jenkins_war_location }}"
+  register: war
+  when: jenkins_war_location | default(false)
+
+- name: Fail if jenkins_war_location file doesn't exist.
+  fail:
+    msg: jenkins_war_location has been defined but it does not exist.
+  when: (jenkins_war_location | default(false)) and not war.stat.exists
+
+- name: Fail if output option is not supported.
+  fail:
+    msg: output only supports 'json', 'stdout' and 'yaml'.
+  when: not ( output == "json" or output == "stdout" or output == "yaml" )

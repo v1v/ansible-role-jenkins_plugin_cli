@@ -1,0 +1,57 @@
+---
+
+- name: Create --jenkins-update-center flag.
+  set_fact: jenkins_update_center_flag="--jenkins-update-center {{ jenkins_update_center_url }}"
+  when: jenkins_update_center_url | default(false)
+
+- name: Create --jenkins-plugin-info flag.
+  set_fact: jenkins_plugin_info_flag="--jenkins-plugin-info {{ jenkins_plugin_info_url }}"
+  when: jenkins_plugin_info_url | default(false)
+
+- name: Create --jenkins-incrementals-repo-mirror flag.
+  set_fact: jenkins_incrementals_repo_mirror_flag="--jenkins-incrementals-repo-mirror {{ jenkins_experimental_update_center_url }}"
+  when: jenkins_experimental_update_center_url | default(false)
+
+- name: Create --war flag.
+  set_fact: war_flag="--war {{ jenkins_war_location }}"
+  when: jenkins_war_location | default(false)
+
+- name: Create --plugin-download-directory flag.
+  set_fact: plugin_download_directory_flag="--plugin-download-directory {{ plugin_download_directory }}"
+  when: plugin_download_directory | default(false)
+
+- name: Create --no-download flag.
+  set_fact: download_flag="--no-download"
+  when: not (download | default(false))
+
+- name: Create --verbose flag.
+  set_fact: verbose_flag="--verbose"
+  when: verbose | default(false)
+
+- name: Create --latest flag.
+  set_fact: latest_flag="--latest true"
+  when: latest | default(false)
+
+- name: Create --latest-specified flag.
+  set_fact: latest_specified_flag="--latest-specified true"
+  when: latest_specified | default(false)
+
+- name: Create --output flag.
+  set_fact: output_flag="--output {{ output }}"
+  when: output | default(false)
+
+- name: Create --plugins flag.
+  set_fact: plugins_flag="--plugins {{ plugins }}"
+  when: plugins | default(false)
+
+- name: Create --plugin-file flag.
+  set_fact: plugin_file_flag="--plugin-file {{ plugin_file }}"
+  when: plugin_file | default(false)
+
+- name: Create JENKINS_UC_DOWNLOAD.
+  set_fact: jenkins_uc_download_flag="export JENKINS_UC_DOWNLOAD={{ jenkins_uc_download_url }}"
+  when: jenkins_uc_download_url | default(false)
+
+- name: Create CACHE_DIR.
+  set_fact: jenkins_plugin_cli_cache_flag="export CACHE_DIR={{ jenkins_plugin_cli_cache_location }}"
+  when: jenkins_plugin_cli_cache_location | default(false)
