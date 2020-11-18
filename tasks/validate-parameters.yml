@@ -1,6 +1,6 @@
 ---
 
-- name: Check that update center from Jenkins update site is reachable.
+- name: Check that update center URL is reachable.
   uri:
     url: "{{ jenkins_update_center_url }}"
   changed_when: false
@@ -10,7 +10,7 @@
   delay: 3
   when: jenkins_update_center_url | default(false)
 
-- name: Check that plugin versions from Jenkins update site is reachable.
+- name: Check that plugin versions URL is reachable.
   uri:
     url: "{{ jenkins_plugin_info_url }}"
   changed_when: false
@@ -20,7 +20,17 @@
   delay: 3
   when: jenkins_plugin_info_url | default(false)
 
-- name: Check that experimental update center from Jenkins update site is reachable.
+- name: Check that update center download URL is reachable.
+  uri:
+    url: "{{ jenkins_uc_download_url }}"
+  changed_when: false
+  register: get_result
+  until: "'OK' in get_result.msg or '304' in get_result.msg"
+  retries: 3
+  delay: 3
+  when: jenkins_uc_download_url | default(false)
+
+- name: Check that experimental update center URL is reachable.
   uri:
     url: "{{ jenkins_experimental_update_center_url }}"
   changed_when: false
@@ -56,14 +66,3 @@
   fail:
     msg: output only supports 'json', 'stdout' and 'yaml'.
   when: not ( output == "json" or output == "stdout" or output == "yaml" )
-
-- name: Find out jenkins_plugin_cli_location file exists or not
-  stat:
-    path: "{{ jenkins_plugin_cli_location }}"
-  register: cli
-  when: jenkins_plugin_cli_location | default(false)
-
-- name: Fail if jenkins_plugin_cli_location file doesn't exist.
-  fail:
-    msg: jenkins_plugin_cli_location has been defined but it does not exist.
-  when: (jenkins_plugin_cli_location | default(false)) and not cli.stat.exists
