@@ -35,6 +35,3 @@
       {{ jenkins_incrementals_repo_mirror_flag | default('') }}
   changed_when: false
   register: result
-
-- debug:
-    var: result
