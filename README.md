@@ -7,7 +7,7 @@ Installs Jenkins plugins using the [plugin-installation-manager-tool](https://gi
 ## Requirements
 
 This role requires:
-* `Java 8+` (see the test playbooks inside the `molecule/default` directory for an example of how to use Java for your OS).
+* `Java 8+`
 * `Jenkins`
 
 ## Role Variables
