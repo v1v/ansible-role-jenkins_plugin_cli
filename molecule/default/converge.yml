@@ -12,11 +12,9 @@
     jenkins_uc_download_url: "https://mirror.xmission.com/jenkins/"
 
   pre_tasks:
-    - include_tasks: java-8.yml
     - include_tasks: jenkins.yml
 
   roles:
-    - role: geerlingguy.java
     - role: v1v.jenkins_plugin_cli
 
   post_tasks:
